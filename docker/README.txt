@@ -4,19 +4,19 @@
 
 # The "ell-dependencies" Dockerfile contains the pre-reqs needed to build ELL, but does not include ELL itself.
 # This should only need to be generated once, as the base dependencies rarely change.
-# Note: this is used as the base ("FROM") image for the "ell-base" Dockerfile.
+# Note: this is used as the base ("FROM") image for the "ell" Dockerfile.
 docker build -t ell-dependencies -f ell-dependencies.Dockerfile .
 
-# The "ell-base" Dockerfile builds ELL and all included tools. This can serve as a continuous integration and
+# The "ell" Dockerfile builds ELL and all included tools. This can serve as a continuous integration and
 # testing image.
 # Note: this depends on the presence of a "ell-dependencies" image, as generated above.
 # Note: to pass in the ELL source during docker build, the context is set to the parent directory ("..")
 # Note: we recommend building with the '--no-cache' flag, to ensure a clean build
-docker build --no-cache -t ell-base -f ell-base.Dockerfile ..
+docker build --no-cache -t ell -f ell.Dockerfile ..
 
 # The "ell-run" Dockerfile adds an entrypoint script that calls ELL's "import-onnx.py" and "wrap.py" tools.
 # See calling instructions below.
-# Note: this depends on the presence of a local "ell-base" image, as generated above.
+# Note: this depends on the presence of a local "ell" image, as generated above.
 # Note: we recommend building with the '--no-cache' flag, to ensure a clean build
 docker build --no-cache -t ell-run -f ell-run.Dockerfile .
 
@@ -52,6 +52,6 @@ docker rm -fv ell-run-task
 # RUNNING DOCKER IMAGES - ADVANCED
 ###################################
 
-# If you want to run the ELL commands yourself, you may boot up an ell-base container
+# If you want to run the ELL commands yourself, you may boot up an "ell" container
 # with the command:
-docker run --rm -it ell-base
+docker run --rm -it "ell"

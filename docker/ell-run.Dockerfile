@@ -3,7 +3,7 @@
 # Ubuntu 18.04, Miniconda, Python 3.6
 #--------------------------------------------------------------------------
 
-FROM ell-base
+FROM ell
 
 RUN pip install \
     argparse \
