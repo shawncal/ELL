@@ -31,7 +31,7 @@ def get_onnx_file(onnxarg):
     onnxpath = os.path.abspath(onnxarg)
     if (os.path.isfile(onnxpath)):
         # Found it on local file system
-        return onnxpath 
+        return onnxpath
 
     # Check if the onnx arg is a URL
     if (validators.url(onnxarg)):
